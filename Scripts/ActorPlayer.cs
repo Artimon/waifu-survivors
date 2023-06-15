@@ -1,5 +1,7 @@
 using Godot;
 
+namespace WaifuSurvivors.Scripts;
+
 public partial class ActorPlayer : CharacterBody2D {
 	public const float Speed = 64.0f;
 	public const float Friction = 20;

@@ -1,22 +1,26 @@
-[gd_scene load_steps=8 format=3 uid="uid://cwp2sfrxvanq7"]
+[gd_scene load_steps=16 format=3 uid="uid://oc3ms4ktwih7"]
 
 [ext_resource type="Script" path="res://Scripts/ActorPlayer.cs" id="1_ohfnp"]
-[ext_resource type="Texture2D" uid="uid://ls48kbiq84t8" path="res://Images/terra.png" id="2_t3qpp"]
+[ext_resource type="Texture2D" uid="uid://ls48kbiq84t8" path="res://Images/TerraBranford.png" id="2_xf43o"]
+[ext_resource type="Texture2D" uid="uid://d03emf205vja1" path="res://Images/EffectWhip.png" id="3_1pc3m"]
+[ext_resource type="Script" path="res://Scripts/WeaponWhip.cs" id="3_nac0s"]
+[ext_resource type="Script" path="res://Scripts/AttackArea.cs" id="5_sl463"]
+[ext_resource type="PackedScene" uid="uid://ckglkq23aevoq" path="res://Prefabs/ActorGhost.tscn" id="6_17ciq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wdn30"]
-atlas = ExtResource("2_t3qpp")
+atlas = ExtResource("2_xf43o")
 region = Rect2(112, 0, 16, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cnxns"]
-atlas = ExtResource("2_t3qpp")
+atlas = ExtResource("2_xf43o")
 region = Rect2(96, 0, 16, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_acp4e"]
-atlas = ExtResource("2_t3qpp")
+atlas = ExtResource("2_xf43o")
 region = Rect2(112, 0, 16, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cdj1j"]
-atlas = ExtResource("2_t3qpp")
+atlas = ExtResource("2_xf43o")
 region = Rect2(0, 24, 16, 24)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kxvkp"]
@@ -47,6 +51,32 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_60ffn"]
+atlas = ExtResource("3_1pc3m")
+region = Rect2(0, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r7uvx"]
+atlas = ExtResource("3_1pc3m")
+region = Rect2(0, 32, 64, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2jotc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60ffn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r7uvx")
+}],
+"loop": false,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1wcr7"]
+radius = 12.0
+height = 56.0
+
 [node name="GameScene" type="Node2D"]
 
 [node name="ActorPlayer" type="CharacterBody2D" parent="." node_paths=PackedStringArray("_actorDisplay", "_animatedSprite")]
@@ -59,6 +89,46 @@ _animatedSprite = NodePath("Actor Display/Actor Sprite")
 
 [node name="Actor Sprite" type="AnimatedSprite2D" parent="ActorPlayer/Actor Display"]
 sprite_frames = SubResource("SpriteFrames_kxvkp")
-animation = &"Walk"
-autoplay = "Walk"
-frame_progress = 0.641847
+animation = &"Idle"
+autoplay = "Idle"
+frame_progress = 0.832419
+
+[node name="WeaponWhip" type="Node2D" parent="ActorPlayer/Actor Display" node_paths=PackedStringArray("_animation", "_attackArea")]
+position = Vector2(-36, -4)
+script = ExtResource("3_nac0s")
+_animation = NodePath("Effect Whip Sprite")
+_attackArea = NodePath("AttackArea")
+
+[node name="Effect Whip Sprite" type="AnimatedSprite2D" parent="ActorPlayer/Actor Display/WeaponWhip"]
+sprite_frames = SubResource("SpriteFrames_2jotc")
+frame = 1
+frame_progress = 1.0
+offset = Vector2(2, 0)
+
+[node name="AttackArea" type="Area2D" parent="ActorPlayer/Actor Display/WeaponWhip"]
+script = ExtResource("5_sl463")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ActorPlayer/Actor Display/WeaponWhip/AttackArea"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_1wcr7")
+
+[node name="ActorGhost" parent="." instance=ExtResource("6_17ciq")]
+position = Vector2(68, 44)
+
+[node name="ActorGhost2" parent="." instance=ExtResource("6_17ciq")]
+position = Vector2(156, 56)
+
+[node name="ActorGhost3" parent="." instance=ExtResource("6_17ciq")]
+position = Vector2(72, 136)
+
+[node name="ActorGhost4" parent="." instance=ExtResource("6_17ciq")]
+position = Vector2(112, 24)
+
+[node name="ActorGhost5" parent="." instance=ExtResource("6_17ciq")]
+position = Vector2(48, 56)
+
+[node name="ActorGhost6" parent="." instance=ExtResource("6_17ciq")]
+position = Vector2(64, 140)
+
+[node name="ActorGhost7" parent="." instance=ExtResource("6_17ciq")]
+position = Vector2(236, 48)
