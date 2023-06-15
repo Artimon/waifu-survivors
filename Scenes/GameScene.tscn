@@ -1,3 +1,64 @@
-[gd_scene format=3 uid="uid://cwp2sfrxvanq7"]
+[gd_scene load_steps=8 format=3 uid="uid://cwp2sfrxvanq7"]
+
+[ext_resource type="Script" path="res://Scripts/ActorPlayer.cs" id="1_ohfnp"]
+[ext_resource type="Texture2D" uid="uid://ls48kbiq84t8" path="res://Images/terra.png" id="2_t3qpp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wdn30"]
+atlas = ExtResource("2_t3qpp")
+region = Rect2(112, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cnxns"]
+atlas = ExtResource("2_t3qpp")
+region = Rect2(96, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_acp4e"]
+atlas = ExtResource("2_t3qpp")
+region = Rect2(112, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cdj1j"]
+atlas = ExtResource("2_t3qpp")
+region = Rect2(0, 24, 16, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kxvkp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wdn30")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cnxns")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_acp4e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cdj1j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_acp4e")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 5.0
+}]
 
 [node name="GameScene" type="Node2D"]
+
+[node name="ActorPlayer" type="CharacterBody2D" parent="." node_paths=PackedStringArray("_actorDisplay", "_animatedSprite")]
+position = Vector2(132, 96)
+script = ExtResource("1_ohfnp")
+_actorDisplay = NodePath("Actor Display")
+_animatedSprite = NodePath("Actor Display/Actor Sprite")
+
+[node name="Actor Display" type="Node2D" parent="ActorPlayer"]
+
+[node name="Actor Sprite" type="AnimatedSprite2D" parent="ActorPlayer/Actor Display"]
+sprite_frames = SubResource("SpriteFrames_kxvkp")
+animation = &"Walk"
+autoplay = "Walk"
+frame_progress = 0.641847
