@@ -31,8 +31,7 @@ public partial class WeaponWhip : Node2D {
 		GD.Print($"Mobs detected: {mobs.Length}");
 
 		foreach (var actorMob in mobs) {
-			RemoveChild(actorMob);
-			actorMob.QueueFree();
+			actorMob.ApplyDamage(2f);
 		}
 	}
 }

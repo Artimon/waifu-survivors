@@ -14,43 +14,22 @@ public partial class ActorPlayer : CharacterBody2D {
 
 	public Vector2 InputDirection => Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
 
+	public readonly Movement _movement;
+
+	public ActorPlayer() {
+		_movement = new Movement(this);
+	}
+
 	public override void _PhysicsProcess(double delta) {
-		var velocity = Velocity;
-
 		var targetVelocity = InputDirection * Speed;
-		var velocityChange = new Vector2 {
-			X = (targetVelocity.X - velocity.X) * Friction * (float)delta,
-			Y = (targetVelocity.Y - velocity.Y) * Friction * (float)delta
-		};
 
-		velocity += velocityChange;
-
-		var isZeroX = Mathf.IsEqualApprox(velocity.X, 0f, 0.01f);
-		if (isZeroX) {
-			velocity.X = 0f;
-		}
-
-		var isZeroY = Mathf.IsEqualApprox(velocity.Y, 0, 0.01f);
-		if (isZeroY) {
-			velocity.Y = 0f;
-		}
-
-		var isStanding = velocity.Equals(Vector2.Zero);
-		if (isStanding) {
-			velocity = Vector2.Zero;
-		}
-
-		var isStopping = targetVelocity.Equals(Vector2.Zero);
+		var isStopping = _movement.PhysicsMove(targetVelocity, Friction, delta);
 		if (isStopping) {
 			_StopAnimation();
 		}
 		else {
-			_UpdateAnimation(velocity);
+			_UpdateAnimation(Velocity);
 		}
-
-		Velocity = velocity;
-
-		MoveAndSlide();
 	}
 
 	public void _StopAnimation() {
