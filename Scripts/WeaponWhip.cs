@@ -4,6 +4,9 @@ namespace WaifuSurvivors.Scripts;
 
 public partial class WeaponWhip : Node2D {
 	[Export]
+	public AudioStreamPlayer _audioPlayer;
+
+	[Export]
 	public AnimatedSprite2D _animation;
 
 	[Export]
@@ -24,6 +27,7 @@ public partial class WeaponWhip : Node2D {
 
 		_timer += _cooldown;
 
+		_audioPlayer.Play();
 		_animation.Play();
 
 		var mobs = _attackArea.GetMobs();

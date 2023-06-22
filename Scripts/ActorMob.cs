@@ -11,7 +11,7 @@ public partial class ActorMob : CharacterBody2D {
 	public const float Friction = 20;
 
 	[Signal]
-	public delegate void OnDeathEventHandler();
+	public delegate void OnDeathEventHandler(ActorMob mob);
 
 	[Export]
 	public float _hits = 2;
@@ -46,7 +46,6 @@ public partial class ActorMob : CharacterBody2D {
 			return;
 		}
 
-		EmitSignal(SignalName.OnDeath);
-		this.Remove();
+		EmitSignal(SignalName.OnDeath, this);
 	}
 }

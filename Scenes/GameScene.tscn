@@ -1,12 +1,16 @@
-[gd_scene load_steps=17 format=3 uid="uid://oc3ms4ktwih7"]
+[gd_scene load_steps=21 format=3 uid="uid://oc3ms4ktwih7"]
 
 [ext_resource type="Script" path="res://Scripts/ActorPlayer.cs" id="1_ohfnp"]
 [ext_resource type="Texture2D" uid="uid://ls48kbiq84t8" path="res://Images/TerraBranford.png" id="2_xf43o"]
 [ext_resource type="Texture2D" uid="uid://d03emf205vja1" path="res://Images/EffectWhip.png" id="3_1pc3m"]
 [ext_resource type="Script" path="res://Scripts/WeaponWhip.cs" id="3_nac0s"]
+[ext_resource type="AudioStream" uid="uid://1717c5x81yay" path="res://Audio/WHOOSH_Whip_RR4_mono.wav" id="4_tf1v7"]
 [ext_resource type="Script" path="res://Scripts/AttackArea.cs" id="5_sl463"]
 [ext_resource type="PackedScene" uid="uid://ckglkq23aevoq" path="res://Prefabs/ActorGhost.tscn" id="6_17ciq"]
 [ext_resource type="Script" path="res://Scripts/ActorMobSpawner.cs" id="6_glgrr"]
+[ext_resource type="Texture2D" uid="uid://bvba4y106q3f4" path="res://Images/ArcSingleDamaged02.png" id="8_hoq7r"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f2yp0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wdn30"]
 atlas = ExtResource("2_xf43o")
@@ -78,7 +82,10 @@ animations = [{
 radius = 12.0
 height = 56.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nbi6v"]
+
 [node name="GameScene" type="Node2D"]
+y_sort_enabled = true
 
 [node name="ActorContainer" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -89,6 +96,10 @@ script = ExtResource("1_ohfnp")
 _actorDisplay = NodePath("Actor Display")
 _animatedSprite = NodePath("Actor Display/Actor Sprite")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ActorContainer/ActorPlayer"]
+position = Vector2(0, 8)
+shape = SubResource("CircleShape2D_f2yp0")
+
 [node name="Actor Display" type="Node2D" parent="ActorContainer/ActorPlayer"]
 
 [node name="Actor Sprite" type="AnimatedSprite2D" parent="ActorContainer/ActorPlayer/Actor Display"]
@@ -97,11 +108,15 @@ animation = &"Idle"
 autoplay = "Idle"
 frame_progress = 0.832419
 
-[node name="WeaponWhip" type="Node2D" parent="ActorContainer/ActorPlayer/Actor Display" node_paths=PackedStringArray("_animation", "_attackArea")]
+[node name="WeaponWhip" type="Node2D" parent="ActorContainer/ActorPlayer/Actor Display" node_paths=PackedStringArray("_audioPlayer", "_animation", "_attackArea")]
 position = Vector2(-36, -4)
 script = ExtResource("3_nac0s")
+_audioPlayer = NodePath("AudioStreamPlayer")
 _animation = NodePath("Effect Whip Sprite")
 _attackArea = NodePath("AttackArea")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="ActorContainer/ActorPlayer/Actor Display/WeaponWhip"]
+stream = ExtResource("4_tf1v7")
 
 [node name="Effect Whip Sprite" type="AnimatedSprite2D" parent="ActorContainer/ActorPlayer/Actor Display/WeaponWhip"]
 sprite_frames = SubResource("SpriteFrames_2jotc")
@@ -122,3 +137,19 @@ _actorMobContainer = NodePath("../..")
 _actorMobPrefab = ExtResource("6_17ciq")
 _spawnDistance = 128.0
 _spawnSize = 48.0
+
+[node name="Camera2D" type="Camera2D" parent="ActorContainer/ActorPlayer"]
+position_smoothing_enabled = true
+
+[node name="AudioListener2D" type="AudioListener2D" parent="ActorContainer/ActorPlayer/Camera2D"]
+position = Vector2(-36, -4)
+
+[node name="ArcSingleDamaged02" type="Sprite2D" parent="."]
+position = Vector2(208, 96)
+texture = ExtResource("8_hoq7r")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="ArcSingleDamaged02"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArcSingleDamaged02/StaticBody2D"]
+position = Vector2(0, 16)
+shape = SubResource("RectangleShape2D_nbi6v")

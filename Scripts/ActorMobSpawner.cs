@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using WaifuSurvivors.Scripts;
@@ -7,6 +8,9 @@ public partial class ActorMobSpawner : Node2D {
 	public const int MaxMobCount = 7;
 
 	public ActorPlayer _player;
+	public ActorMob _actorMobBlueprint;
+
+	public readonly Queue<ActorMob> _mobs = new();
 
 	[Export]
 	public Node2D _actorMobContainer;
@@ -33,6 +37,8 @@ public partial class ActorMobSpawner : Node2D {
 			.GetNodesInGroup("Player")
 			.OfType<ActorPlayer>()
 			.First();
+
+		TryAcquireMob(out _actorMobBlueprint);
 	}
 
 	public override void _Process(double delta) {
@@ -55,10 +61,15 @@ public partial class ActorMobSpawner : Node2D {
 		var spawnCenter = GlobalPosition + Vector2.FromAngle(angle) * _spawnDistance;
 
 		while (CanSpawnMob) {
-			var mob = _actorMobPrefab.Instantiate<ActorMob>();
-			mob.OnDeath += () => {
-				_mobCount -= 1;
-			};
+			var wasCached = TryAcquireMob(out var mob);
+			if (!wasCached) {
+				mob.OnDeath += (deadMob) => {
+					_mobCount -= 1;
+
+					_actorMobContainer.RemoveChild(deadMob);
+					_mobs.Enqueue(mob);
+				};
+			}
 
 			// GetTree().Root.AddChild(mob);
 			_actorMobContainer.AddChild(mob);
@@ -67,8 +78,21 @@ public partial class ActorMobSpawner : Node2D {
 			mob.Target = _player;
 
 			_mobCount += 1;
-
-			GD.Print("Mob spawned!");
 		}
+	}
+
+	public bool TryAcquireMob(out ActorMob mob) {
+		var success = _mobs.TryDequeue(out mob);
+		if (success) {
+			mob._hits = _actorMobBlueprint._hits;
+
+			return true;
+		}
+
+		GD.Print("Instantiating Mob!");
+
+		mob = _actorMobPrefab.Instantiate<ActorMob>();
+
+		return false;
 	}
 }

@@ -10,6 +10,7 @@ script = ExtResource("1_buqrb")
 _hits = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
 rotation = 1.5708
 shape = SubResource("CircleShape2D_3lnhn")
 
