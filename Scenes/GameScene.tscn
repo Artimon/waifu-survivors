@@ -87,6 +87,9 @@ height = 56.0
 [node name="GameScene" type="Node2D"]
 y_sort_enabled = true
 
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.32549, 0.533333, 1, 1)
+
 [node name="ActorContainer" type="Node2D" parent="."]
 y_sort_enabled = true
 
