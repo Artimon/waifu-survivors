@@ -16,6 +16,9 @@ public partial class ActorMob : ActorBase {
 	[Export]
 	public float _armor = 1;
 
+	[Export]
+	public DamageTicker _damageTicker;
+
 	public ActorPlayer _target;
 
 	public ActorPlayer Target {
@@ -39,5 +42,13 @@ public partial class ActorMob : ActorBase {
 		}
 
 		EmitSignal(SignalName.OnDeath, this);
+	}
+
+	public void OnTouchPlayer(ActorPlayer actorPlayer) {
+		_damageTicker.Begin(actorPlayer);
+	}
+
+	public void OnUntouchPlayer() {
+		_damageTicker.End();
 	}
 }

@@ -1,17 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://ckglkq23aevoq"]
+[gd_scene load_steps=6 format=3 uid="uid://ckglkq23aevoq"]
 
 [ext_resource type="Script" path="res://Scripts/ActorMob.cs" id="1_buqrb"]
 [ext_resource type="PhysicsMaterial" uid="uid://ckbgtyvcyv0e7" path="res://PhysicsMaterialNoFriction.tres" id="1_j70tk"]
 [ext_resource type="Texture2D" uid="uid://leed4ehuwlkc" path="res://Images/Ghost.png" id="2_cugjo"]
+[ext_resource type="Script" path="res://Scripts/DamageTicker.cs" id="3_ejcq3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3lnhn"]
 
-[node name="RigidBody2D" type="RigidBody2D" node_paths=PackedStringArray("_actorDisplay")]
+[node name="RigidBody2D" type="RigidBody2D" node_paths=PackedStringArray("_damageTicker", "_actorDisplay")]
 physics_material_override = ExtResource("1_j70tk")
 gravity_scale = 0.0
 lock_rotation = true
 script = ExtResource("1_buqrb")
 _hits = 1.0
+_damageTicker = NodePath("Timer")
 _actorDisplay = NodePath("ActorDisplay")
 _speed = 24.0
 
@@ -19,6 +21,10 @@ _speed = 24.0
 position = Vector2(0, 8)
 rotation = 1.5708
 shape = SubResource("CircleShape2D_3lnhn")
+
+[node name="Timer" type="Timer" parent="." node_paths=PackedStringArray("_actorMob")]
+script = ExtResource("3_ejcq3")
+_actorMob = NodePath("..")
 
 [node name="ActorDisplay" type="Node2D" parent="."]
 
