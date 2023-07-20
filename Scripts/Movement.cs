@@ -3,15 +3,9 @@
 namespace WaifuSurvivors.Scripts;
 
 public class Movement {
-	public readonly RigidBody2D _characterBody;
-
 	public Vector2 _velocity;
 
 	public Vector2 Velocity => _velocity;
-
-	public Movement(RigidBody2D characterBody) {
-		_characterBody = characterBody;
-	}
 
 	public bool PhysicsMove(Vector2 targetVelocity, float friction, double delta) {
 		var velocityChange = new Vector2 {
