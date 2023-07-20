@@ -6,7 +6,7 @@ namespace WaifuSurvivors.Scripts;
  * "Scriptable object" like:
  * @link https://ezcha.net/news/3-1-23-custom-resources-are-op-in-godot-4
  */
-public partial class ActorMob : CharacterBody2D {
+public partial class ActorMob : RigidBody2D {
 	public const float Speed = 24.0f;
 	public const float Friction = 20;
 
@@ -29,6 +29,10 @@ public partial class ActorMob : CharacterBody2D {
 
 	public ActorMob() {
 		_movement = new Movement(this);
+	}
+
+	public override void _IntegrateForces(PhysicsDirectBodyState2D state) {
+		state.LinearVelocity = _movement.Velocity;
 	}
 
 	public override void _PhysicsProcess(double delta) {

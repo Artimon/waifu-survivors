@@ -1,11 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://ckglkq23aevoq"]
+[gd_scene load_steps=5 format=3 uid="uid://ckglkq23aevoq"]
 
 [ext_resource type="Script" path="res://Scripts/ActorMob.cs" id="1_buqrb"]
+[ext_resource type="PhysicsMaterial" uid="uid://ckbgtyvcyv0e7" path="res://PhysicsMaterialNoFriction.tres" id="1_j70tk"]
 [ext_resource type="Texture2D" uid="uid://leed4ehuwlkc" path="res://Images/Ghost.png" id="2_cugjo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3lnhn"]
 
-[node name="ActorGhost" type="CharacterBody2D"]
+[node name="RigidBody2D" type="RigidBody2D"]
+physics_material_override = ExtResource("1_j70tk")
+gravity_scale = 0.0
+lock_rotation = true
 script = ExtResource("1_buqrb")
 _hits = 1.0
 

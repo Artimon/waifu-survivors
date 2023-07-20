@@ -2,9 +2,9 @@ using Godot;
 
 namespace WaifuSurvivors.Scripts;
 
-public partial class ActorPlayer : CharacterBody2D {
+public partial class ActorPlayer : RigidBody2D {
 	public const float Speed = 64.0f;
-	public const float Friction = 20;
+	public const float Friction = 20f;
 
 	[Export]
 	public Node2D _actorDisplay;
@@ -20,15 +20,21 @@ public partial class ActorPlayer : CharacterBody2D {
 		_movement = new Movement(this);
 	}
 
+	public override void _IntegrateForces(PhysicsDirectBodyState2D state) {
+		state.LinearVelocity = _movement.Velocity;
+	}
+
 	public override void _PhysicsProcess(double delta) {
 		var targetVelocity = InputDirection * Speed;
 
-		var isStopping = _movement.PhysicsMove(targetVelocity, Friction, delta);
+		var isMoving = _movement.PhysicsMove(targetVelocity, Friction, delta);
+		var isStopping = targetVelocity.Equals(Vector2.Zero);
+		
 		if (isStopping) {
 			_StopAnimation();
 		}
 		else {
-			_UpdateAnimation(Velocity);
+			_UpdateAnimation(_movement.Velocity);
 		}
 	}
 

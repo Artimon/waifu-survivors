@@ -1,6 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://oc3ms4ktwih7"]
+[gd_scene load_steps=22 format=3 uid="uid://oc3ms4ktwih7"]
 
 [ext_resource type="Script" path="res://Scripts/ActorPlayer.cs" id="1_ohfnp"]
+[ext_resource type="PhysicsMaterial" uid="uid://ckbgtyvcyv0e7" path="res://PhysicsMaterialNoFriction.tres" id="1_qjxih"]
 [ext_resource type="Texture2D" uid="uid://ls48kbiq84t8" path="res://Images/TerraBranford.png" id="2_xf43o"]
 [ext_resource type="Texture2D" uid="uid://d03emf205vja1" path="res://Images/EffectWhip.png" id="3_1pc3m"]
 [ext_resource type="Script" path="res://Scripts/WeaponWhip.cs" id="3_nac0s"]
@@ -88,63 +89,66 @@ height = 56.0
 y_sort_enabled = true
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.32549, 0.533333, 1, 1)
 
 [node name="ActorContainer" type="Node2D" parent="."]
 y_sort_enabled = true
 
-[node name="ActorPlayer" type="CharacterBody2D" parent="ActorContainer" node_paths=PackedStringArray("_actorDisplay", "_animatedSprite") groups=["Player"]]
+[node name="RigidBody2D" type="RigidBody2D" parent="ActorContainer" node_paths=PackedStringArray("_actorDisplay", "_animatedSprite") groups=["Player"]]
 position = Vector2(132, 96)
+mass = 1e+08
+physics_material_override = ExtResource("1_qjxih")
+gravity_scale = 0.0
+lock_rotation = true
 script = ExtResource("1_ohfnp")
 _actorDisplay = NodePath("Actor Display")
 _animatedSprite = NodePath("Actor Display/Actor Sprite")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ActorContainer/ActorPlayer"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ActorContainer/RigidBody2D"]
 position = Vector2(0, 8)
 shape = SubResource("CircleShape2D_f2yp0")
 
-[node name="Actor Display" type="Node2D" parent="ActorContainer/ActorPlayer"]
+[node name="Actor Display" type="Node2D" parent="ActorContainer/RigidBody2D"]
 
-[node name="Actor Sprite" type="AnimatedSprite2D" parent="ActorContainer/ActorPlayer/Actor Display"]
+[node name="Actor Sprite" type="AnimatedSprite2D" parent="ActorContainer/RigidBody2D/Actor Display"]
 sprite_frames = SubResource("SpriteFrames_kxvkp")
 animation = &"Idle"
 autoplay = "Idle"
 frame_progress = 0.832419
 
-[node name="WeaponWhip" type="Node2D" parent="ActorContainer/ActorPlayer/Actor Display" node_paths=PackedStringArray("_audioPlayer", "_animation", "_attackArea")]
+[node name="WeaponWhip" type="Node2D" parent="ActorContainer/RigidBody2D/Actor Display" node_paths=PackedStringArray("_audioPlayer", "_animation", "_attackArea")]
 position = Vector2(-36, -4)
 script = ExtResource("3_nac0s")
 _audioPlayer = NodePath("AudioStreamPlayer")
 _animation = NodePath("Effect Whip Sprite")
 _attackArea = NodePath("AttackArea")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="ActorContainer/ActorPlayer/Actor Display/WeaponWhip"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="ActorContainer/RigidBody2D/Actor Display/WeaponWhip"]
 stream = ExtResource("4_tf1v7")
 
-[node name="Effect Whip Sprite" type="AnimatedSprite2D" parent="ActorContainer/ActorPlayer/Actor Display/WeaponWhip"]
+[node name="Effect Whip Sprite" type="AnimatedSprite2D" parent="ActorContainer/RigidBody2D/Actor Display/WeaponWhip"]
 sprite_frames = SubResource("SpriteFrames_2jotc")
 frame = 1
 frame_progress = 1.0
 offset = Vector2(2, 0)
 
-[node name="AttackArea" type="Area2D" parent="ActorContainer/ActorPlayer/Actor Display/WeaponWhip"]
+[node name="AttackArea" type="Area2D" parent="ActorContainer/RigidBody2D/Actor Display/WeaponWhip"]
 script = ExtResource("5_sl463")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ActorContainer/ActorPlayer/Actor Display/WeaponWhip/AttackArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ActorContainer/RigidBody2D/Actor Display/WeaponWhip/AttackArea"]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_1wcr7")
 
-[node name="ActorMobSpawner" type="Node2D" parent="ActorContainer/ActorPlayer" node_paths=PackedStringArray("_actorMobContainer")]
+[node name="ActorMobSpawner" type="Node2D" parent="ActorContainer/RigidBody2D" node_paths=PackedStringArray("_actorMobContainer")]
 script = ExtResource("6_glgrr")
 _actorMobContainer = NodePath("../..")
 _actorMobPrefab = ExtResource("6_17ciq")
 _spawnDistance = 128.0
 _spawnSize = 48.0
 
-[node name="Camera2D" type="Camera2D" parent="ActorContainer/ActorPlayer"]
+[node name="Camera2D" type="Camera2D" parent="ActorContainer/RigidBody2D"]
 position_smoothing_enabled = true
 
-[node name="AudioListener2D" type="AudioListener2D" parent="ActorContainer/ActorPlayer/Camera2D"]
+[node name="AudioListener2D" type="AudioListener2D" parent="ActorContainer/RigidBody2D/Camera2D"]
 position = Vector2(-36, -4)
 
 [node name="ArcSingleDamaged02" type="Sprite2D" parent="."]
