@@ -24,14 +24,16 @@ _actorMobPrefab = ExtResource("6_17ciq")
 y_sort_enabled = true
 
 [node name="ActorPlayer" parent="ActorContainer" instance=ExtResource("1_ijxoh")]
-position = Vector2(156, 96)
+position = Vector2(-52, -20)
 
-[node name="ArcSingleDamaged02" type="Sprite2D" parent="."]
-position = Vector2(208, 96)
+[node name="ArcSingleDamaged02" type="Node2D" parent="."]
+
+[node name="Arc Sprite" type="Sprite2D" parent="ArcSingleDamaged02"]
+position = Vector2(0, -16)
 texture = ExtResource("8_hoq7r")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="ArcSingleDamaged02"]
+[node name="StaticBody2D" type="StaticBody2D" parent="ArcSingleDamaged02/Arc Sprite"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ArcSingleDamaged02/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArcSingleDamaged02/Arc Sprite/StaticBody2D"]
 position = Vector2(0, 16)
 shape = SubResource("RectangleShape2D_nbi6v")

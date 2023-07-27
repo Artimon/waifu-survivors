@@ -36,6 +36,10 @@ public partial class ControllerMobSpawn : Node2D {
 
 	public Vector2 PlayerGlobalPosition => _actorPlayer.GlobalPosition;
 
+	public override void _Ready() {
+		TryAcquireMob(out _actorMobBlueprint);
+	}
+
 	public override void _Process(double delta) {
 		_timer -= delta;
 		if (_timer > 0d) {

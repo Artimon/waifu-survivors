@@ -55,4 +55,4 @@ animations = [{
 
 [node name="Actor Animation Sprite" parent="Actor Display" index="0"]
 sprite_frames = SubResource("SpriteFrames_swh7t")
-frame_progress = 0.429829
+animation = &"Walk"

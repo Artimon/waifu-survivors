@@ -10,6 +10,12 @@ public partial class WeaponWhip : Node2D {
 	public AnimatedSprite2D _animation;
 
 	[Export]
+	public GpuParticles2D _particlesHearts;
+
+	[Export]
+	public GpuParticles2D _particlesSparks;
+
+	[Export]
 	public AttackArea _attackArea;
 
 	public double _timer;
@@ -29,6 +35,8 @@ public partial class WeaponWhip : Node2D {
 
 		_audioPlayer.Play();
 		_animation.Play();
+		_particlesHearts.Play();
+		_particlesSparks.Play();
 
 		var mobs = _attackArea.GetMobs();
 
