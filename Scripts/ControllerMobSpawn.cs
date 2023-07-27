@@ -1,20 +1,22 @@
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Godot;
-using WaifuSurvivors.Scripts;
 
-public partial class ActorMobSpawner : Node2D {
+namespace WaifuSurvivors.Scripts;
+
+public partial class ControllerMobSpawn : Node2D {
 	public const double SpawnCheckDelay = 0.1d;
 	public const int MaxMobCount = 7;
 
-	public ActorPlayer _player;
 	public ActorMob _actorMobBlueprint;
 
 	public readonly Queue<ActorMob> _mobs = new();
 
 	[Export]
-	public Node2D _actorMobContainer;
-	
+	public Node2D _actorContainer;
+
+	[Export]
+	public ActorPlayer _actorPlayer;
+
 	[Export]
 	public PackedScene _actorMobPrefab;
 
@@ -32,14 +34,7 @@ public partial class ActorMobSpawner : Node2D {
 
 	public bool CanSpawnMob => _mobCount < MaxMobCount;
 
-	public override void _Ready() {
-		_player = GetTree()
-			.GetNodesInGroup("Player")
-			.OfType<ActorPlayer>()
-			.First();
-
-		TryAcquireMob(out _actorMobBlueprint);
-	}
+	public Vector2 PlayerGlobalPosition => _actorPlayer.GlobalPosition;
 
 	public override void _Process(double delta) {
 		_timer -= delta;
@@ -58,7 +53,9 @@ public partial class ActorMobSpawner : Node2D {
 		}
 
 		var angle = Mathf.Tau * GD.Randf();
-		var spawnCenter = GlobalPosition + Vector2.FromAngle(angle) * _spawnDistance;
+		var spawnCenter = PlayerGlobalPosition + Vector2.FromAngle(angle) * _spawnDistance;
+
+		// GD.Print($"{PlayerGlobalPosition} => {spawnCenter}");
 
 		while (CanSpawnMob) {
 			var wasCached = TryAcquireMob(out var mob);
@@ -66,16 +63,16 @@ public partial class ActorMobSpawner : Node2D {
 				mob.OnDeath += (deadMob) => {
 					_mobCount -= 1;
 
-					_actorMobContainer.RemoveChild(deadMob);
+					_actorContainer.RemoveChild(deadMob);
 					_mobs.Enqueue(mob);
 				};
 			}
 
 			// GetTree().Root.AddChild(mob);
-			_actorMobContainer.AddChild(mob);
+			_actorContainer.AddChild(mob);
 
 			mob.GlobalPosition = spawnCenter + new Vector2(RandomSpawnRange, RandomSpawnRange);
-			mob.Target = _player;
+			mob.Target = _actorPlayer;
 
 			_mobCount += 1;
 		}

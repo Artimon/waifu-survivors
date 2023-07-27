@@ -1,87 +1,9 @@
-[gd_scene load_steps=22 format=3 uid="uid://oc3ms4ktwih7"]
+[gd_scene load_steps=6 format=3 uid="uid://oc3ms4ktwih7"]
 
-[ext_resource type="Script" path="res://Scripts/ActorPlayer.cs" id="1_ohfnp"]
-[ext_resource type="PhysicsMaterial" uid="uid://ckbgtyvcyv0e7" path="res://PhysicsMaterialNoFriction.tres" id="1_qjxih"]
-[ext_resource type="Texture2D" uid="uid://ls48kbiq84t8" path="res://Images/TerraBranford.png" id="2_xf43o"]
-[ext_resource type="Texture2D" uid="uid://d03emf205vja1" path="res://Images/EffectWhip.png" id="3_1pc3m"]
-[ext_resource type="Script" path="res://Scripts/WeaponWhip.cs" id="3_nac0s"]
-[ext_resource type="AudioStream" uid="uid://1717c5x81yay" path="res://Audio/WHOOSH_Whip_RR4_mono.wav" id="4_tf1v7"]
-[ext_resource type="Script" path="res://Scripts/AttackArea.cs" id="5_sl463"]
+[ext_resource type="Script" path="res://Scripts/ControllerMobSpawn.cs" id="1_2434o"]
+[ext_resource type="PackedScene" uid="uid://bwiskx77e205j" path="res://Prefabs/Waifus/WaifuNun.tscn" id="1_ijxoh"]
 [ext_resource type="PackedScene" uid="uid://ckglkq23aevoq" path="res://Prefabs/ActorGhost.tscn" id="6_17ciq"]
-[ext_resource type="Script" path="res://Scripts/ActorMobSpawner.cs" id="6_glgrr"]
 [ext_resource type="Texture2D" uid="uid://bvba4y106q3f4" path="res://Images/ArcSingleDamaged02.png" id="8_hoq7r"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_f2yp0"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wdn30"]
-atlas = ExtResource("2_xf43o")
-region = Rect2(112, 0, 16, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cnxns"]
-atlas = ExtResource("2_xf43o")
-region = Rect2(96, 0, 16, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_acp4e"]
-atlas = ExtResource("2_xf43o")
-region = Rect2(112, 0, 16, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cdj1j"]
-atlas = ExtResource("2_xf43o")
-region = Rect2(0, 24, 16, 24)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_kxvkp"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wdn30")
-}],
-"loop": true,
-"name": &"Idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_cnxns")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_acp4e")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_cdj1j")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_acp4e")
-}],
-"loop": true,
-"name": &"Walk",
-"speed": 5.0
-}]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_60ffn"]
-atlas = ExtResource("3_1pc3m")
-region = Rect2(0, 0, 64, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_r7uvx"]
-atlas = ExtResource("3_1pc3m")
-region = Rect2(0, 32, 64, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_2jotc"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_60ffn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_r7uvx")
-}],
-"loop": false,
-"name": &"default",
-"speed": 8.0
-}]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1wcr7"]
-radius = 12.0
-height = 56.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nbi6v"]
 
@@ -90,69 +12,19 @@ y_sort_enabled = true
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 
+[node name="Controllers" type="Node2D" parent="."]
+
+[node name="ControllerMobSpawn" type="Node2D" parent="Controllers" node_paths=PackedStringArray("_actorContainer", "_actorPlayer")]
+script = ExtResource("1_2434o")
+_actorContainer = NodePath("../../ActorContainer")
+_actorPlayer = NodePath("../../ActorContainer/ActorPlayer")
+_actorMobPrefab = ExtResource("6_17ciq")
+
 [node name="ActorContainer" type="Node2D" parent="."]
 y_sort_enabled = true
 
-[node name="ActorPlayer" type="RigidBody2D" parent="ActorContainer" node_paths=PackedStringArray("_animatedSprite", "_actorDisplay") groups=["Player"]]
-position = Vector2(132, 96)
-mass = 1e+08
-physics_material_override = ExtResource("1_qjxih")
-gravity_scale = 0.0
-max_contacts_reported = 20
-contact_monitor = true
-lock_rotation = true
-script = ExtResource("1_ohfnp")
-_animatedSprite = NodePath("Actor Display/Actor Sprite")
-_actorDisplay = NodePath("Actor Display")
-_speed = 64.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ActorContainer/ActorPlayer"]
-position = Vector2(0, 8)
-shape = SubResource("CircleShape2D_f2yp0")
-
-[node name="Actor Display" type="Node2D" parent="ActorContainer/ActorPlayer"]
-
-[node name="Actor Sprite" type="AnimatedSprite2D" parent="ActorContainer/ActorPlayer/Actor Display"]
-sprite_frames = SubResource("SpriteFrames_kxvkp")
-animation = &"Idle"
-autoplay = "Idle"
-frame_progress = 0.832419
-
-[node name="WeaponWhip" type="Node2D" parent="ActorContainer/ActorPlayer/Actor Display" node_paths=PackedStringArray("_audioPlayer", "_animation", "_attackArea")]
-position = Vector2(-36, -4)
-script = ExtResource("3_nac0s")
-_audioPlayer = NodePath("AudioStreamPlayer")
-_animation = NodePath("Effect Whip Sprite")
-_attackArea = NodePath("AttackArea")
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="ActorContainer/ActorPlayer/Actor Display/WeaponWhip"]
-stream = ExtResource("4_tf1v7")
-
-[node name="Effect Whip Sprite" type="AnimatedSprite2D" parent="ActorContainer/ActorPlayer/Actor Display/WeaponWhip"]
-sprite_frames = SubResource("SpriteFrames_2jotc")
-frame = 1
-frame_progress = 1.0
-offset = Vector2(2, 0)
-
-[node name="AttackArea" type="Area2D" parent="ActorContainer/ActorPlayer/Actor Display/WeaponWhip"]
-script = ExtResource("5_sl463")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ActorContainer/ActorPlayer/Actor Display/WeaponWhip/AttackArea"]
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_1wcr7")
-
-[node name="ActorMobSpawner" type="Node2D" parent="ActorContainer/ActorPlayer" node_paths=PackedStringArray("_actorMobContainer")]
-script = ExtResource("6_glgrr")
-_actorMobContainer = NodePath("../..")
-_actorMobPrefab = ExtResource("6_17ciq")
-_spawnDistance = 128.0
-_spawnSize = 48.0
-
-[node name="Camera2D" type="Camera2D" parent="ActorContainer/ActorPlayer"]
-position_smoothing_enabled = true
-
-[node name="AudioListener2D" type="AudioListener2D" parent="ActorContainer/ActorPlayer/Camera2D"]
-position = Vector2(-36, -4)
+[node name="ActorPlayer" parent="ActorContainer" instance=ExtResource("1_ijxoh")]
+position = Vector2(156, 96)
 
 [node name="ArcSingleDamaged02" type="Sprite2D" parent="."]
 position = Vector2(208, 96)

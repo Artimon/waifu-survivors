@@ -18,7 +18,6 @@ _actorDisplay = NodePath("ActorDisplay")
 _speed = 24.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 8)
 rotation = 1.5708
 shape = SubResource("CircleShape2D_3lnhn")
 
@@ -29,4 +28,5 @@ _actorMob = NodePath("..")
 [node name="ActorDisplay" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="ActorDisplay"]
+position = Vector2(0, -8)
 texture = ExtResource("2_cugjo")

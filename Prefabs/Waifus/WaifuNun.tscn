@@ -1,0 +1,58 @@
+[gd_scene load_steps=9 format=3 uid="uid://bwiskx77e205j"]
+
+[ext_resource type="PackedScene" uid="uid://cqo5atgfb0xto" path="res://Prefabs/Waifus/WaifuBase.tscn" id="1_xb78v"]
+[ext_resource type="Texture2D" uid="uid://426ugefbodfr" path="res://Images/Waifus/WaifuNun.png" id="2_yqdy2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ga261"]
+atlas = ExtResource("2_yqdy2")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_svqfy"]
+atlas = ExtResource("2_yqdy2")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fm0m6"]
+atlas = ExtResource("2_yqdy2")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_230qj"]
+atlas = ExtResource("2_yqdy2")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1x646"]
+atlas = ExtResource("2_yqdy2")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_swh7t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ga261")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_svqfy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fm0m6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_230qj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1x646")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 5.0
+}]
+
+[node name="ActorPlayer" instance=ExtResource("1_xb78v")]
+
+[node name="Actor Animation Sprite" parent="Actor Display" index="0"]
+sprite_frames = SubResource("SpriteFrames_swh7t")
+frame_progress = 0.429829

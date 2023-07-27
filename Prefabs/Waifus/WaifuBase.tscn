@@ -1,0 +1,135 @@
+[gd_scene load_steps=18 format=3 uid="uid://cqo5atgfb0xto"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://ckbgtyvcyv0e7" path="res://PhysicsMaterialNoFriction.tres" id="1_gwohg"]
+[ext_resource type="Script" path="res://Scripts/ActorPlayer.cs" id="2_qmaro"]
+[ext_resource type="Texture2D" uid="uid://ls48kbiq84t8" path="res://Images/TerraBranford.png" id="3_3hiim"]
+[ext_resource type="Script" path="res://Scripts/WeaponWhip.cs" id="4_vintf"]
+[ext_resource type="AudioStream" uid="uid://1717c5x81yay" path="res://Audio/WHOOSH_Whip_RR4_mono.wav" id="5_jg55w"]
+[ext_resource type="Texture2D" uid="uid://d03emf205vja1" path="res://Images/EffectWhip.png" id="6_tm2q0"]
+[ext_resource type="Script" path="res://Scripts/AttackArea.cs" id="7_3lpna"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f2yp0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wdn30"]
+atlas = ExtResource("3_3hiim")
+region = Rect2(112, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cnxns"]
+atlas = ExtResource("3_3hiim")
+region = Rect2(96, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_acp4e"]
+atlas = ExtResource("3_3hiim")
+region = Rect2(112, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cdj1j"]
+atlas = ExtResource("3_3hiim")
+region = Rect2(0, 24, 16, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wq73x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wdn30")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cnxns")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_acp4e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cdj1j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_acp4e")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60ffn"]
+atlas = ExtResource("6_tm2q0")
+region = Rect2(0, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r7uvx"]
+atlas = ExtResource("6_tm2q0")
+region = Rect2(0, 32, 64, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2jotc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60ffn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r7uvx")
+}],
+"loop": false,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1wcr7"]
+radius = 12.0
+height = 56.0
+
+[node name="ActorPlayer" type="RigidBody2D" node_paths=PackedStringArray("_animatedSprite", "_actorDisplay") groups=["Player"]]
+mass = 1e+08
+physics_material_override = ExtResource("1_gwohg")
+gravity_scale = 0.0
+max_contacts_reported = 20
+contact_monitor = true
+lock_rotation = true
+script = ExtResource("2_qmaro")
+_animatedSprite = NodePath("Actor Display/Actor Animation Sprite")
+_actorDisplay = NodePath("Actor Display")
+_speed = 64.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.5, 0.5)
+shape = SubResource("CircleShape2D_f2yp0")
+
+[node name="Actor Display" type="Node2D" parent="."]
+
+[node name="Actor Animation Sprite" type="AnimatedSprite2D" parent="Actor Display"]
+position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_wq73x")
+animation = &"Idle"
+autoplay = "Idle"
+
+[node name="WeaponWhip" type="Node2D" parent="Actor Display" node_paths=PackedStringArray("_audioPlayer", "_animation", "_attackArea")]
+position = Vector2(-36, -16)
+script = ExtResource("4_vintf")
+_audioPlayer = NodePath("AudioStreamPlayer")
+_animation = NodePath("Effect Whip Sprite")
+_attackArea = NodePath("AttackArea")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Actor Display/WeaponWhip"]
+stream = ExtResource("5_jg55w")
+
+[node name="Effect Whip Sprite" type="AnimatedSprite2D" parent="Actor Display/WeaponWhip"]
+sprite_frames = SubResource("SpriteFrames_2jotc")
+frame = 1
+frame_progress = 1.0
+offset = Vector2(2, 0)
+
+[node name="AttackArea" type="Area2D" parent="Actor Display/WeaponWhip"]
+script = ExtResource("7_3lpna")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Actor Display/WeaponWhip/AttackArea"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_1wcr7")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -8)
+position_smoothing_enabled = true
+
+[node name="AudioListener2D" type="AudioListener2D" parent="Camera2D"]
+position = Vector2(-36, -4)
