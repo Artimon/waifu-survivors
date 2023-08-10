@@ -1,7 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://oc3ms4ktwih7"]
+[gd_scene load_steps=9 format=3 uid="uid://oc3ms4ktwih7"]
 
 [ext_resource type="Script" path="res://Scripts/ControllerMobSpawn.cs" id="1_2434o"]
 [ext_resource type="PackedScene" uid="uid://bwiskx77e205j" path="res://Prefabs/Waifus/WaifuNun.tscn" id="1_ijxoh"]
+[ext_resource type="Script" path="res://Scripts/ControllerExperience.cs" id="3_sga83"]
+[ext_resource type="PackedScene" uid="uid://hfl1jixq0h23" path="res://Prefabs/ExperienceGem.tscn" id="4_n1030"]
+[ext_resource type="Script" path="res://Scripts/LevelContainer.cs" id="5_ap7v4"]
 [ext_resource type="PackedScene" uid="uid://ckglkq23aevoq" path="res://Prefabs/ActorGhost.tscn" id="6_17ciq"]
 [ext_resource type="Texture2D" uid="uid://bvba4y106q3f4" path="res://Images/ArcSingleDamaged02.png" id="8_hoq7r"]
 
@@ -14,16 +17,22 @@ y_sort_enabled = true
 
 [node name="Controllers" type="Node2D" parent="."]
 
-[node name="ControllerMobSpawn" type="Node2D" parent="Controllers" node_paths=PackedStringArray("_actorContainer", "_actorPlayer")]
+[node name="ControllerMobSpawn" type="Node2D" parent="Controllers" node_paths=PackedStringArray("_levelContainer", "_actorPlayer")]
 script = ExtResource("1_2434o")
-_actorContainer = NodePath("../../ActorContainer")
-_actorPlayer = NodePath("../../ActorContainer/ActorPlayer")
+_levelContainer = NodePath("../../LevelContainer")
+_actorPlayer = NodePath("../../LevelContainer/ActorPlayer")
 _actorMobPrefab = ExtResource("6_17ciq")
 
-[node name="ActorContainer" type="Node2D" parent="."]
-y_sort_enabled = true
+[node name="ControllerExperience" type="Node2D" parent="Controllers" node_paths=PackedStringArray("_levelContainer")]
+script = ExtResource("3_sga83")
+_levelContainer = NodePath("../../LevelContainer")
+_experienceGemPrefab = ExtResource("4_n1030")
 
-[node name="ActorPlayer" parent="ActorContainer" instance=ExtResource("1_ijxoh")]
+[node name="LevelContainer" type="Node2D" parent="."]
+y_sort_enabled = true
+script = ExtResource("5_ap7v4")
+
+[node name="ActorPlayer" parent="LevelContainer" instance=ExtResource("1_ijxoh")]
 position = Vector2(-52, -20)
 
 [node name="ArcSingleDamaged02" type="Node2D" parent="."]

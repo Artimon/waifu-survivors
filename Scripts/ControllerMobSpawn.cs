@@ -12,7 +12,7 @@ public partial class ControllerMobSpawn : Node2D {
 	public readonly Queue<ActorMob> _mobs = new();
 
 	[Export]
-	public Node2D _actorContainer;
+	public LevelContainer _levelContainer;
 
 	[Export]
 	public ActorPlayer _actorPlayer;
@@ -67,13 +67,13 @@ public partial class ControllerMobSpawn : Node2D {
 				mob.OnDeath += (deadMob) => {
 					_mobCount -= 1;
 
-					_actorContainer.RemoveChild(deadMob);
+					_levelContainer.RemoveChild(deadMob);
 					_mobs.Enqueue(mob);
 				};
 			}
 
 			// GetTree().Root.AddChild(mob);
-			_actorContainer.AddChild(mob);
+			_levelContainer.AddChild(mob);
 
 			mob.GlobalPosition = spawnCenter + new Vector2(RandomSpawnRange, RandomSpawnRange);
 			mob.Target = _actorPlayer;

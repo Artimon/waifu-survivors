@@ -42,6 +42,8 @@ public partial class ActorMob : ActorBase {
 		}
 
 		EmitSignal(SignalName.OnDeath, this);
+
+		ControllerExperience.instance.CreateExperience(this);
 	}
 
 	public void OnTouchPlayer(ActorPlayer actorPlayer) {
