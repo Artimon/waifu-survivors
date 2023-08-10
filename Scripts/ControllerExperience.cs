@@ -11,6 +11,9 @@ public partial class ControllerExperience : Node2D {
 	[Export]
 	public PackedScene _experienceGemPrefab;
 
+	[Export]
+	public AudioStreamPlayer _experienceAudio;
+
 	public override void _EnterTree() {
 		instance = this;
 	}
@@ -19,6 +22,10 @@ public partial class ControllerExperience : Node2D {
 		var experienceGem = _levelContainer.Append<ExperienceGem>(_experienceGemPrefab, actor.GlobalPosition);
 
 		experienceGem.experience = 5f; // Create via resource config.
+	}
+
+	public void PlayExperienceSound() {
+		_experienceAudio.Play();
 	}
 
 	public override void _ExitTree() {

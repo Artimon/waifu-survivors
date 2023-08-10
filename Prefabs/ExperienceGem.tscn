@@ -5,14 +5,14 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m2fxp"]
 
-[node name="ExperienceGem" type="Node2D"]
+[node name="ExperienceGem" type="Area2D"]
+collision_layer = 2
+collision_mask = 0
 script = ExtResource("1_ybtkn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.5, 0.5)
+shape = SubResource("CircleShape2D_m2fxp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_n0t7a")
-
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-scale = Vector2(0.5, 0.5)
-shape = SubResource("CircleShape2D_m2fxp")

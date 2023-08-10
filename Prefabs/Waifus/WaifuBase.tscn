@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cqo5atgfb0xto"]
+[gd_scene load_steps=30 format=3 uid="uid://cqo5atgfb0xto"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://ckbgtyvcyv0e7" path="res://PhysicsMaterialNoFriction.tres" id="1_gwohg"]
 [ext_resource type="Script" path="res://Scripts/Actors/ActorPlayer.cs" id="2_rjjdy"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://hxe8br1f51jb" path="res://Images/Effects/LoveChainHeart.png" id="7_b1nmh"]
 [ext_resource type="Texture2D" uid="uid://c4ru0tpuqv2c1" path="res://Images/Effects/LoveChainSparkle.png" id="8_1jcm6"]
 [ext_resource type="Texture2D" uid="uid://blfm6sqfu82y1" path="res://Images/HealthBarUnder.png" id="10_gm6fc"]
+[ext_resource type="Script" path="res://Scripts/Actors/Composites/ActorCompMagnet.cs" id="10_wrwwf"]
 [ext_resource type="Texture2D" uid="uid://ohbs045qicd5" path="res://Images/HealthBarProgress.png" id="11_kaadw"]
 [ext_resource type="Script" path="res://Scripts/Actors/Composites/ActorCompHitsBar.cs" id="12_rbq3p"]
 
@@ -120,6 +121,8 @@ particles_anim_loop = false
 radius = 12.0
 height = 72.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_y8pc8"]
+
 [node name="ActorPlayer" type="RigidBody2D" node_paths=PackedStringArray("_animatedSprite", "_hitsBar", "_actorDisplay") groups=["Player"]]
 mass = 1e+08
 physics_material_override = ExtResource("1_gwohg")
@@ -190,6 +193,15 @@ script = ExtResource("7_3lpna")
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_1wcr7")
 
+[node name="ActorCompMagnet" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("10_wrwwf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ActorCompMagnet"]
+scale = Vector2(2, 2)
+shape = SubResource("CircleShape2D_y8pc8")
+
 [node name="TextureProgressBar" type="TextureProgressBar" parent="."]
 offset_left = -12.0
 offset_top = 5.0
@@ -208,3 +220,5 @@ position_smoothing_enabled = true
 
 [node name="AudioListener2D" type="AudioListener2D" parent="Camera2D"]
 position = Vector2(-36, -4)
+
+[connection signal="area_entered" from="ActorCompMagnet" to="ActorCompMagnet" method="_OnAreaEntered"]
