@@ -1,6 +1,6 @@
 using Godot;
 
-namespace WaifuSurvivors.Scripts;
+namespace WaifuSurvivors;
 
 /**
  * "Scriptable object" like:

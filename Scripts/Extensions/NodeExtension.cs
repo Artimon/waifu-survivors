@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-namespace WaifuSurvivors.Scripts;
+namespace WaifuSurvivors.Extensions;
 
 public static class NodeExtension {
 	public static void Remove(this Node node) {

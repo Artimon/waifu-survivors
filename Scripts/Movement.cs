@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-namespace WaifuSurvivors.Scripts;
+namespace WaifuSurvivors;
 
 public class Movement {
 	public Vector2 _velocity;

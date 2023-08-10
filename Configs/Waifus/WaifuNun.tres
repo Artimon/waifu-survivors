@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cpkyliyfkk2h8"]
+
+[ext_resource type="Script" path="res://Scripts/WaifuConfig.cs" id="1_vsp0s"]
+[ext_resource type="Texture2D" uid="uid://4vsggyodqso2" path="res://Images/Waifus/WaifuNunIdle.png" id="2_yhhl0"]
+
+[resource]
+script = ExtResource("1_vsp0s")
+hits = 120
+textureIdle = ExtResource("2_yhhl0")

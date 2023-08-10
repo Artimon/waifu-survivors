@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://426ugefbodfr"
-path="res://.godot/imported/WaifuNun.png-40606c78c9a6033347803049e4207408.ctex"
+uid="uid://blfm6sqfu82y1"
+path="res://.godot/imported/HealthBarUnder.png-744883288aea20686fecbbfbada5f80b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Waifus/WaifuNun.png"
-dest_files=["res://.godot/imported/WaifuNun.png-40606c78c9a6033347803049e4207408.ctex"]
+source_file="res://Images/HealthBarUnder.png"
+dest_files=["res://.godot/imported/HealthBarUnder.png-744883288aea20686fecbbfbada5f80b.ctex"]
 
 [params]
 

@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-namespace WaifuSurvivors.Scripts;
+namespace WaifuSurvivors;
 
 public abstract partial class ActorBase : RigidBody2D {
 	public const float Friction = 20f;

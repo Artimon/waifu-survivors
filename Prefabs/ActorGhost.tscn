@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://ckglkq23aevoq"]
 
-[ext_resource type="Script" path="res://Scripts/ActorMob.cs" id="1_buqrb"]
+[ext_resource type="Script" path="res://Scripts/Actors/ActorMob.cs" id="1_buqrb"]
 [ext_resource type="PhysicsMaterial" uid="uid://ckbgtyvcyv0e7" path="res://PhysicsMaterialNoFriction.tres" id="1_j70tk"]
 [ext_resource type="Texture2D" uid="uid://leed4ehuwlkc" path="res://Images/Ghost.png" id="2_cugjo"]
 [ext_resource type="Script" path="res://Scripts/DamageTicker.cs" id="3_ejcq3"]

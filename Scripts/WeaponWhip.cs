@@ -1,6 +1,7 @@
 using Godot;
+using WaifuSurvivors.Extensions;
 
-namespace WaifuSurvivors.Scripts;
+namespace WaifuSurvivors;
 
 public partial class WeaponWhip : Node2D {
 	[Export]

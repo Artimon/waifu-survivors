@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Godot;
 
-namespace WaifuSurvivors.Scripts;
+namespace WaifuSurvivors;
 
 public partial class ControllerMobSpawn : Node2D {
 	public const double SpawnCheckDelay = 0.1d;

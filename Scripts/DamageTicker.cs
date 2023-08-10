@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-namespace WaifuSurvivors.Scripts;
+namespace WaifuSurvivors;
 
 public partial class DamageTicker : Timer {
 	public ActorPlayer _actorPlayer;

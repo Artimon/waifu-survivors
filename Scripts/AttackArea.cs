@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Godot;
 
-namespace WaifuSurvivors.Scripts;
+namespace WaifuSurvivors;
 
 public partial class AttackArea : Area2D {
 	public override void _Ready() {
