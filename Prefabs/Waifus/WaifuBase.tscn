@@ -193,10 +193,11 @@ script = ExtResource("7_3lpna")
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_1wcr7")
 
-[node name="ActorCompMagnet" type="Area2D" parent="."]
+[node name="ActorCompMagnet" type="Area2D" parent="." node_paths=PackedStringArray("_actor")]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("10_wrwwf")
+_actor = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ActorCompMagnet"]
 scale = Vector2(2, 2)
