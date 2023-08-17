@@ -3,7 +3,7 @@ using WaifuSurvivors.Extensions;
 
 namespace WaifuSurvivors;
 
-public partial class WeaponWhip : Node2D {
+public partial class WeaponLoveChainSlash : PhysicsReady {
 	[Export]
 	public AudioStreamPlayer _audioPlayer;
 
@@ -19,21 +19,7 @@ public partial class WeaponWhip : Node2D {
 	[Export]
 	public AttackArea _attackArea;
 
-	public double _timer;
-	public double _cooldown = 1.8d;
-
-	public override void _Ready() {
-		_timer = _cooldown;
-	}
-
-	public override void _Process(double delta) {
-		_timer -= delta;
-		if (_timer > 0d) {
-			return;
-		}
-
-		_timer += _cooldown;
-
+	public void _OnPhysicsReady() {
 		_audioPlayer.Play();
 		_animation.Play();
 		_particlesHearts.Play();

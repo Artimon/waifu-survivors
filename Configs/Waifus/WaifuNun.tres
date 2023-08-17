@@ -5,5 +5,5 @@
 
 [resource]
 script = ExtResource("1_vsp0s")
-hits = 120
+hits = 120.0
 textureIdle = ExtResource("2_yhhl0")
