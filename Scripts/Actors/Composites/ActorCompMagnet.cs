@@ -1,5 +1,4 @@
 ﻿using Godot;
-using WaifuSurvivors.Extensions;
 
 namespace WaifuSurvivors;
 
@@ -9,8 +8,6 @@ public partial class ActorCompMagnet : Area2D {
 			return;
 		}
 
-		experienceGem.Remove(); // Start process to move towards player.
-
-		ControllerExperience.instance.PlayExperienceSound();
+		experienceGem.Collect(); // Start process to move towards player.
 	}
 }
