@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://oc3ms4ktwih7"]
+[gd_scene load_steps=11 format=3 uid="uid://oc3ms4ktwih7"]
 
 [ext_resource type="Script" path="res://Scripts/ControllerMobSpawn.cs" id="1_2434o"]
 [ext_resource type="PackedScene" uid="uid://bwiskx77e205j" path="res://Prefabs/Waifus/WaifuNun.tscn" id="1_ijxoh"]
 [ext_resource type="Script" path="res://Scripts/ControllerExperience.cs" id="3_sga83"]
 [ext_resource type="PackedScene" uid="uid://hfl1jixq0h23" path="res://Prefabs/ExperienceGem.tscn" id="4_n1030"]
+[ext_resource type="Script" path="res://Scripts/AudioStreamLimiter.cs" id="5_0kcuh"]
 [ext_resource type="Script" path="res://Scripts/LevelContainer.cs" id="5_ap7v4"]
 [ext_resource type="AudioStream" uid="uid://bs3v5dg1o1ek2" path="res://Audio/ui_menu_button_click_08.wav" id="5_lwaq6"]
 [ext_resource type="PackedScene" uid="uid://ckglkq23aevoq" path="res://Prefabs/ActorGhost.tscn" id="6_17ciq"]
@@ -28,11 +29,19 @@ _actorMobPrefab = ExtResource("6_17ciq")
 script = ExtResource("3_sga83")
 _levelContainer = NodePath("../../LevelContainer")
 _experienceGemPrefab = ExtResource("4_n1030")
-_experienceAudio = NodePath("AudioStreamPlayer")
+_experienceAudio = NodePath("AudioStreamLimiter")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Controllers/ControllerExperience"]
+[node name="AudioStreamLimiter" type="Node2D" parent="Controllers/ControllerExperience" node_paths=PackedStringArray("_audioStreamPlayers")]
+script = ExtResource("5_0kcuh")
+_audioStreamPlayers = [NodePath("AudioStreamPlayer"), NodePath("AudioStreamPlayer2")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Controllers/ControllerExperience/AudioStreamLimiter"]
 stream = ExtResource("5_lwaq6")
-volume_db = -10.0
+bus = &"Sfx"
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="Controllers/ControllerExperience/AudioStreamLimiter"]
+stream = ExtResource("5_lwaq6")
+bus = &"Sfx"
 
 [node name="LevelContainer" type="Node2D" parent="."]
 y_sort_enabled = true

@@ -14,7 +14,7 @@ public partial class ControllerExperience : Node2D {
 	public PackedScene _experienceGemPrefab;
 
 	[Export]
-	public AudioStreamPlayer _experienceAudio;
+	public AudioStreamLimiter _experienceAudio;
 
 	public int _gemAmount;
 

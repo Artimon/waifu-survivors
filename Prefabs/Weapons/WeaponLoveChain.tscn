@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dppkp0eegv5l5"]
+
+[ext_resource type="Script" path="res://Scripts/Weapons/WeaponLoveChain.cs" id="1_ty307"]
+[ext_resource type="PackedScene" uid="uid://54wpq6vt601p" path="res://Prefabs/Weapons/WeaponLoveChainSlash.tscn" id="2_slh1h"]
+
+[node name="WeaponLoveChain" type="Node2D" node_paths=PackedStringArray("_weaponTimer", "_slashTimer")]
+script = ExtResource("1_ty307")
+_weaponTimer = NodePath("Weapon Timer")
+_slashTimer = NodePath("Slash Timer")
+_weaponLoveChainSlashPrefab = ExtResource("2_slh1h")
+
+[node name="Weapon Timer" type="Timer" parent="."]
+
+[node name="Slash Timer" type="Timer" parent="."]
