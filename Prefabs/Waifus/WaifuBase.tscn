@@ -85,6 +85,7 @@ autoplay = "Idle"
 [node name="Weapons Container" type="Node2D" parent="Actor Display"]
 
 [node name="WeaponLoveChain" parent="Actor Display/Weapons Container" node_paths=PackedStringArray("_actor") instance=ExtResource("4_tnm3m")]
+position = Vector2(0, -16)
 _actor = NodePath("../../..")
 
 [node name="ActorCompMagnet" type="Area2D" parent="." node_paths=PackedStringArray("_actor")]

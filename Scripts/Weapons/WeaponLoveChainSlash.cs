@@ -8,7 +8,10 @@ public partial class WeaponLoveChainSlash : PhysicsReady {
 	public AudioStreamPlayer _audioPlayer;
 
 	[Export]
-	public AnimatedSprite2D _animation;
+	public AnimationPlayer _animationPlayer;
+
+	[Export]
+	public AnimatedSprite2D _animationSprite;
 
 	[Export]
 	public GpuParticles2D _particlesHearts;
@@ -21,7 +24,8 @@ public partial class WeaponLoveChainSlash : PhysicsReady {
 
 	public void _OnPhysicsReady() {
 		_audioPlayer.Play();
-		_animation.Play();
+		_animationPlayer.Play("Slash");
+		_animationSprite.Play();
 		_particlesHearts.Play();
 		_particlesSparks.Play();
 

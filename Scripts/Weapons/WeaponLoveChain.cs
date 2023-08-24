@@ -15,7 +15,7 @@ public partial class WeaponLoveChain : Node2D {
 	[Export]
 	public PackedScene _weaponLoveChainSlashPrefab;
 
-	public float _slashMirror = 1f;
+	public float _slashMirror;
 	public int _slashCount;
 
 	public override void _Ready() {
@@ -28,7 +28,8 @@ public partial class WeaponLoveChain : Node2D {
 	}
 
 	public void _OnTimeout() {
-		_slashCount = 15;
+		_slashMirror = 1f;
+		_slashCount = 3;
 		_slashTimer.Start();
 	}
 
@@ -36,7 +37,8 @@ public partial class WeaponLoveChain : Node2D {
 		var loveChainSlash = LevelContainer.Instance.Append<WeaponLoveChainSlash>(_weaponLoveChainSlashPrefab, GlobalPosition);
 
 		var scale = loveChainSlash.Scale;
-		scale.X = _actor.scaleX * _slashMirror;
+		scale.X = _actor.scaleX * _slashMirror; // * aoeScale
+		// scale.Y = aoeScale;
 
 		loveChainSlash.Scale = scale;
 
