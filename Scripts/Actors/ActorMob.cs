@@ -33,17 +33,19 @@ public partial class ActorMob : ActorBase {
 		_UpdateDisplayDirection();
 	}
 
-	public void ApplyDamage(float attack) {
-		var damage = attack - _armor;
+	public void ApplyDamage(float attack, out bool isDead) {
+		var damage = Mathf.Max(0.5f, attack - _armor);
 
 		_hits -= damage;
-		if (_hits > 0f) {
+
+		isDead = _hits <= 0f;
+		if (!isDead) {
 			return;
 		}
 
-		EmitSignal(SignalName.OnDeath, this);
-
 		ControllerExperience.instance.CreateExperience(this);
+
+		EmitSignal(SignalName.OnDeath, this);
 	}
 
 	public void OnTouchPlayer(ActorPlayer actorPlayer) {

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://oc3ms4ktwih7"]
+[gd_scene load_steps=12 format=3 uid="uid://oc3ms4ktwih7"]
 
 [ext_resource type="Script" path="res://Scripts/ControllerMobSpawn.cs" id="1_2434o"]
 [ext_resource type="PackedScene" uid="uid://bwiskx77e205j" path="res://Prefabs/Waifus/WaifuNun.tscn" id="1_ijxoh"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Scripts/LevelContainer.cs" id="5_ap7v4"]
 [ext_resource type="AudioStream" uid="uid://bs3v5dg1o1ek2" path="res://Audio/ui_menu_button_click_08.wav" id="5_lwaq6"]
 [ext_resource type="PackedScene" uid="uid://ckglkq23aevoq" path="res://Prefabs/ActorGhost.tscn" id="6_17ciq"]
+[ext_resource type="Script" path="res://Scripts/ControllerOnPhysics.cs" id="7_o0awe"]
 [ext_resource type="Texture2D" uid="uid://bvba4y106q3f4" path="res://Images/ArcSingleDamaged02.png" id="8_hoq7r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nbi6v"]
@@ -42,6 +43,9 @@ bus = &"Sfx"
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="Controllers/ControllerExperience/AudioStreamLimiter"]
 stream = ExtResource("5_lwaq6")
 bus = &"Sfx"
+
+[node name="ControllerOnPhysics" type="Node2D" parent="Controllers"]
+script = ExtResource("7_o0awe")
 
 [node name="LevelContainer" type="Node2D" parent="."]
 y_sort_enabled = true

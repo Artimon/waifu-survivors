@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://cqo5atgfb0xto"]
+[gd_scene load_steps=17 format=3 uid="uid://cqo5atgfb0xto"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://ckbgtyvcyv0e7" path="res://PhysicsMaterialNoFriction.tres" id="1_gwohg"]
 [ext_resource type="Script" path="res://Scripts/Actors/ActorPlayer.cs" id="2_rjjdy"]
 [ext_resource type="Texture2D" uid="uid://ls48kbiq84t8" path="res://Images/TerraBranford.png" id="3_3hiim"]
 [ext_resource type="PackedScene" uid="uid://dppkp0eegv5l5" path="res://Prefabs/Weapons/WeaponLoveChain.tscn" id="4_tnm3m"]
+[ext_resource type="PackedScene" uid="uid://dmiywi866r25c" path="res://Prefabs/Weapons/WeaponGoldenGrail.tscn" id="5_i2yle"]
 [ext_resource type="Texture2D" uid="uid://blfm6sqfu82y1" path="res://Images/HealthBarUnder.png" id="10_gm6fc"]
 [ext_resource type="Script" path="res://Scripts/Actors/Composites/ActorCompMagnet.cs" id="10_wrwwf"]
 [ext_resource type="Texture2D" uid="uid://ohbs045qicd5" path="res://Images/HealthBarProgress.png" id="11_kaadw"]
@@ -87,6 +88,8 @@ autoplay = "Idle"
 [node name="WeaponLoveChain" parent="Actor Display/Weapons Container" node_paths=PackedStringArray("_actor") instance=ExtResource("4_tnm3m")]
 position = Vector2(0, -16)
 _actor = NodePath("../../..")
+
+[node name="WeaponGoldenGrail" parent="Actor Display/Weapons Container" instance=ExtResource("5_i2yle")]
 
 [node name="ActorCompMagnet" type="Area2D" parent="." node_paths=PackedStringArray("_actor")]
 collision_layer = 0

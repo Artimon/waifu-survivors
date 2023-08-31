@@ -34,7 +34,7 @@ public partial class WeaponLoveChainSlash : PhysicsReady {
 		GD.Print($"Mobs detected: {mobs.Length}");
 
 		foreach (var actorMob in mobs) {
-			actorMob.ApplyDamage(2f);
+			actorMob.ApplyDamage(2f, out _);
 		}
 	}
 }

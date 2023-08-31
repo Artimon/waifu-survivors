@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://dmiywi866r25c"]
+
+[ext_resource type="Script" path="res://Scripts/Weapons/WeaponGoldenGrail.cs" id="1_xpa4r"]
+[ext_resource type="Texture2D" uid="uid://ngve0ksxhn6n" path="res://Images/Effects/GoldenGrailAura.png" id="2_45c5o"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_761s1"]
+radius = 24.0
+
+[node name="WeaponGoldenGrail" type="Node2D" node_paths=PackedStringArray("_tickTimer")]
+script = ExtResource("1_xpa4r")
+_tickTimer = NodePath("Timer")
+_tickTime = 1.3
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_761s1")
+
+[node name="Aura Sprite2D" type="Sprite2D" parent="Area2D/CollisionShape2D"]
+z_index = -1
+texture = ExtResource("2_45c5o")
+
+[connection signal="body_entered" from="Area2D" to="." method="_OnBodyEntered"]
+[connection signal="body_exited" from="Area2D" to="." method="_OnBodyExited"]

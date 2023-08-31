@@ -90,7 +90,7 @@ public partial class ControllerMobSpawn : Node2D {
 			return true;
 		}
 
-		GD.Print("Instantiating Mob!");
+		// GD.Print("Instantiating Mob!");
 
 		mob = _actorMobPrefab.Instantiate<ActorMob>();
 
