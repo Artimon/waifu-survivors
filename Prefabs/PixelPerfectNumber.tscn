@@ -1,0 +1,130 @@
+[gd_scene load_steps=14 format=3 uid="uid://bk4hdts1ckbt8"]
+
+[ext_resource type="Script" path="res://Scripts/PixelPerfectNumber.cs" id="1_k8x4p"]
+[ext_resource type="Texture2D" uid="uid://bdnubuglry643" path="res://Images/Numbers.png" id="2_jh05u"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2mmdp"]
+atlas = ExtResource("2_jh05u")
+region = Rect2(0, 0, 5, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i6xpa"]
+atlas = ExtResource("2_jh05u")
+region = Rect2(5, 0, 5, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fseig"]
+atlas = ExtResource("2_jh05u")
+region = Rect2(10, 0, 5, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3i01f"]
+atlas = ExtResource("2_jh05u")
+region = Rect2(15, 0, 5, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2igq1"]
+atlas = ExtResource("2_jh05u")
+region = Rect2(20, 0, 5, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jc761"]
+atlas = ExtResource("2_jh05u")
+region = Rect2(25, 0, 5, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4cgrd"]
+atlas = ExtResource("2_jh05u")
+region = Rect2(30, 0, 5, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xt4bi"]
+atlas = ExtResource("2_jh05u")
+region = Rect2(35, 0, 5, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bulhx"]
+atlas = ExtResource("2_jh05u")
+region = Rect2(40, 0, 5, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ycsey"]
+atlas = ExtResource("2_jh05u")
+region = Rect2(45, 0, 5, 7)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lqxq2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2mmdp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i6xpa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fseig")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3i01f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2igq1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jc761")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4cgrd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xt4bi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bulhx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ycsey")
+}],
+"loop": true,
+"name": &"Digit",
+"speed": 5.0
+}]
+
+[node name="PixelPerfectNumber" type="Node2D" node_paths=PackedStringArray("_control1", "_control2", "_control3", "_sprite1", "_sprite2", "_sprite3")]
+script = ExtResource("1_k8x4p")
+_control1 = NodePath("HBoxContainer/Control")
+_control2 = NodePath("HBoxContainer/Control2")
+_control3 = NodePath("HBoxContainer/Control3")
+_sprite1 = NodePath("HBoxContainer/Control/AnimatedSprite2D")
+_sprite2 = NodePath("HBoxContainer/Control2/AnimatedSprite2D")
+_sprite3 = NodePath("HBoxContainer/Control3/AnimatedSprite2D")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_right = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Control" type="Control" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HBoxContainer/Control"]
+z_index = 10
+position = Vector2(4, 0)
+sprite_frames = SubResource("SpriteFrames_lqxq2")
+animation = &"Digit"
+
+[node name="Control2" type="Control" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HBoxContainer/Control2"]
+z_index = 10
+position = Vector2(4, 0)
+sprite_frames = SubResource("SpriteFrames_lqxq2")
+animation = &"Digit"
+
+[node name="Control3" type="Control" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HBoxContainer/Control3"]
+z_index = 10
+position = Vector2(4, 0)
+sprite_frames = SubResource("SpriteFrames_lqxq2")
+animation = &"Digit"

@@ -38,6 +38,8 @@ public partial class ActorMob : ActorBase {
 
 		_hits -= damage;
 
+		ControllerDamageNumbers.instance.Create(damage, GlobalPosition);
+
 		isDead = _hits <= 0f;
 		if (!isDead) {
 			return;

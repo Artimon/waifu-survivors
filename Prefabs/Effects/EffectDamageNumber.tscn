@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=3 uid="uid://5sipqjtdyby2"]
+
+[ext_resource type="Script" path="res://Scripts/EffectDamageNumber.cs" id="1_jtvwc"]
+[ext_resource type="PackedScene" uid="uid://bk4hdts1ckbt8" path="res://Prefabs/PixelPerfectNumber.tscn" id="2_ah34a"]
+
+[sub_resource type="Animation" id="Animation_qxtbn"]
+resource_name = "FlyOff"
+length = 0.65
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PixelPerfectNumber:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.65),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(8, -12)]
+}
+
+[sub_resource type="Animation" id="Animation_ha25r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PixelPerfectNumber:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(8, -12)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_18d23"]
+_data = {
+"FlyOff": SubResource("Animation_qxtbn"),
+"RESET": SubResource("Animation_ha25r")
+}
+
+[node name="EffectDamageNumber" type="Node2D" node_paths=PackedStringArray("_pixelPerfectNumber", "_animationPlayer")]
+script = ExtResource("1_jtvwc")
+_pixelPerfectNumber = NodePath("PixelPerfectNumber")
+_animationPlayer = NodePath("AnimationPlayer")
+
+[node name="PixelPerfectNumber" parent="." instance=ExtResource("2_ah34a")]
+position = Vector2(8, -12)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_18d23")
+}
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_OnAnimationFinished"]

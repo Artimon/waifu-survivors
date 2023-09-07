@@ -3,19 +3,19 @@ using Godot;
 
 namespace WaifuSurvivors;
 
-public partial class ControllerOnPhysics : Node2D {
-	public static event Action Defer;
+public partial class ControllerDefer : Node2D {
+	public static event Action Delay;
 
 	public override void _Process(double _) {
-		if (Defer == null) {
+		if (Delay == null) {
 			return;
 		}
 
-		Defer();
-		Defer = null;
+		Delay();
+		Delay = null;
 	}
 
 	public override void _ExitTree() {
-		Defer = null;
+		Delay = null;
 	}
 }

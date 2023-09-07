@@ -39,7 +39,7 @@ public partial class WeaponGoldenGrail : Node2D {
 
 		var nextTickTime = tickTime + _millisecondsBetweenTicks;
 
-		actor.ApplyDamage(0.5f, out var isDead);
+		actor.ApplyDamage(5f, out var isDead);
 		if (!isDead) {
 			_mobTicks[actor] = nextTickTime;
 		}
@@ -53,7 +53,7 @@ public partial class WeaponGoldenGrail : Node2D {
 			return;
 		}
 
-		ControllerOnPhysics.Defer += () => {
+		ControllerDefer.Delay += () => {
 			var microTime = Time.GetTicksMsec();
 
 			// Automatically add the mob to the dictionary.
